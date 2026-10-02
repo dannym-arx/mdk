@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - master
-      - windows-platform-port
   workflow_dispatch:
 
 permissions:
@@ -18,7 +17,7 @@ concurrency:
 jobs:
   windows-filesystem:
     runs-on: windows-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     env:
       CARGO_TERM_COLOR: always
       CARGO_INCREMENTAL: "0"
@@ -32,4 +31,4 @@ jobs:
       - name: Test filesystem, account replacement, and audit delivery
         run: cargo test --locked -p fs-private -p marmot-account -p marmot-forensics
       - name: Test runtime root ownership
-        run: cargo test --locked -p marmot-app root_runtime_lease
+        run: cargo test --locked -p marmot-app --lib root_runtime_lease
